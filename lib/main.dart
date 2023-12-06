@@ -1,4 +1,5 @@
-import 'package:dribble_ui/pages/home_page.dart';
+import 'package:dribble_ui/screens/home_page.dart';
+import 'package:dribble_ui/screens/onboarding_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

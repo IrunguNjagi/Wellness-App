@@ -5,8 +5,8 @@ class EmojiFaces extends StatelessWidget {
   final String emojiFace;
 
   const EmojiFaces({Key? key,
-    required this.emojiFace
-  }) : super(key: key);
+    required this.emojiFace })
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
