@@ -73,7 +73,7 @@ class MoodSlider extends StatefulWidget {
 }
 
 class _MoodSliderState extends State<MoodSlider> {
-  //Initial value for the slider
+  // Initial value for the slider
   double _currentValue = 50.0;
 
   List<String> moodLabels = [
@@ -88,25 +88,22 @@ class _MoodSliderState extends State<MoodSlider> {
 
   @override
   Widget build(BuildContext context) {
-    //Calculate background gradient based on slider value
+    // Calculate background gradient based on slider value
     Color backgroundColor = Color.lerp(
       Color.fromRGBO(128, 0, 128, 0.2), // Purple
       Color.fromRGBO(255, 165, 0, 0.7), // Orange
       _currentValue / 100,
     )!;
+
     return Scaffold(
-      /*appBar: AppBar(
-        title: const Text('Mood Slider'),
-      ),*/
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
               backgroundColor.withOpacity(0.5),
-              // Adjust gradient opacity as needed
               backgroundColor.withOpacity(0.8),
             ],
-            stops: [0.2, 1.0], // Adjust stops for color transitions
+            stops: [0.2, 1.0],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -129,7 +126,7 @@ class _MoodSliderState extends State<MoodSlider> {
                     icon: Icon(Icons.arrow_back_ios_new),
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).pop();
                     },
                     child: Text('Cancel',
@@ -169,15 +166,6 @@ class _MoodSliderState extends State<MoodSlider> {
                 ),
               ),
             ),
-            /*AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
-              height: 100.0 + (_currentValue - 50).abs(),
-              width: 100.0 + (_currentValue - 50).abs(),
-              decoration: BoxDecoration(
-                color: _currentValue < 50 ? Colors.blue : Colors.yellow,
-                borderRadius: BorderRadius.circular(50.0),
-              ),
-            ),*/
             const SizedBox(height: 60.0),
             Text(
               moodLabels[(_currentValue / 100 * 6).round()],
@@ -195,9 +183,9 @@ class _MoodSliderState extends State<MoodSlider> {
                 thumbColor: Colors.white,
                 overlayColor: Colors.blue.withOpacity(0.3),
                 thumbShape:
-                    const RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                const RoundSliderThumbShape(enabledThumbRadius: 15.0),
                 overlayShape:
-                    const RoundSliderOverlayShape(overlayRadius: 25.0),
+                const RoundSliderOverlayShape(overlayRadius: 25.0),
               ),
               child: Slider(
                 value: _currentValue,
@@ -222,8 +210,40 @@ class _MoodSliderState extends State<MoodSlider> {
             ),
             SizedBox(height: 70.0),
             GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>BreathingExerciseScreen()));
+              onTap: () {
+                if (_currentValue <= 50.0) {
+                  // Navigate to exercise screen
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('You got this, lets try meditating')
+                    ),
+                  );
+                  Future.delayed(
+                    Duration(seconds: 2),
+                    () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BreathingExerciseScreen(),
+                          ),
+                        );
+                      }
+                  );
+                } else {
+                  // Show snackbar and navigate to home page
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Keep it up!'),
+                    ),
+                  );
+
+                  // Simulate navigation after a delay
+                  Future.delayed(
+                    Duration(seconds: 2),
+                        () {
+                      Navigator.pop(context);
+                    },
+                  );
+                }
               },
               child: Container(
                 alignment: Alignment.center,

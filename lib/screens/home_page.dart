@@ -285,7 +285,7 @@ class _HomePageState extends State<HomePage> {
                                       builder: (context) => QuotePage()));
                             },
                             child: const ExerciseTiles(
-                                icon: Icons.phone_in_talk,
+                                icon: Icons.book,
                                 exerciseName: "Read a quote",
                                 numberOfExercise: 20),
                           ),
